@@ -1,0 +1,26 @@
+@import './variables.scss';
+
+nav {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  background: $secondary-color;
+  color: $black;
+
+  h3 {
+    font-size: 1.75rem;
+  }
+
+  .logo-container img {
+    height: 100px;
+  }
+}
+
+.dark {
+  nav {
+    background: $primary-color;
+    color: $white;
+  }
+}

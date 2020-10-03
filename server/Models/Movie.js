@@ -9,6 +9,10 @@ const MovieSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
+  overview: {
+    type: String,
+    default: null,
+  },
   backdrop: {
     type: String,
     default: null,
@@ -17,6 +21,10 @@ const MovieSchema = new mongoose.Schema({
     visibility: {
       type: String,
       default: 'draft',
+    },
+    releaseDate: {
+      type: String,
+      default: null,
     },
     status: {
       type: String,
