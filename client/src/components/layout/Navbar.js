@@ -3,54 +3,94 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/auth';
-// import moment from 'moment';
 
 const Navbar = (props) => {
   const [checkIfChecked, setCheckIfChecked] = useState(true);
-  const [modeType, setModeType] = useState('LIGHT');
+  const [modeType, setModeType] = useState('DARK');
+  const [openNav, setOpenNav] = useState('');
+
+  const hamburgerClick = () => {
+    console.log('clicked');
+    if (openNav === '') {
+      setOpenNav('open');
+      handleOpen('open');
+    } else {
+      setOpenNav('');
+      handleOpen('');
+    }
+  };
 
   const clickCheckbox = () => {
-    // console.log(checkIfChecked);
     if (checkIfChecked === true) {
       setCheckIfChecked(false);
-      setModeType('DARK');
-      handleChange('dark');
-    } else {
-      setCheckIfChecked(true);
       setModeType('LIGHT');
       handleChange('light');
+    } else {
+      setCheckIfChecked(true);
+      setModeType('DARK');
+      handleChange('dark');
     }
   };
 
   const handleChange = (event) => {
-    // Here, we invoke the callback with the new value
     props.onChange(event);
+  };
+
+  const handleOpen = (event) => {
+    props.onEdit(event);
   };
 
   return (
     <nav className="navbar bg-dark">
       <div className="logo-container">
-        {/* <img src="https://the-movie-db-io.s3.us-east-2.amazonaws.com/logo.png" alt="Logo" /> */}
-        <h3>theMovieDb.io</h3>
+        {props ? <img src="https://picsum.photos/50" class="profile-pic" /> : null}
+        <h5>Testing</h5>
+        <h5>Testing</h5>
+        <h5>Testing</h5>
+        <h5>Testing</h5>
       </div>
-      <div class="dark-mode-toggle">
-        <h5>
-          <span id="dark-mode-mode">{modeType}</span> MODE
-        </h5>
-        <label id="dark-mode-label">
-          <input
-            type="checkbox"
-            id="dark-mode-switch"
-            class="ios-switch green bigswitch"
-            checked={checkIfChecked}
-            onClick={() => clickCheckbox()}
-          />
-          <div>
-            <div id="button-center">
-              <i class="fas fa fa-adjust"></i>
+      <div className="right-nav">
+        <div class="dark-mode-toggle">
+          <h5>
+            <span id="dark-mode-mode">{modeType}</span> MODE
+          </h5>
+          <label id="dark-mode-label">
+            <input
+              type="checkbox"
+              id="dark-mode-switch"
+              class="ios-switch green bigswitch"
+              checked={checkIfChecked}
+              onClick={() => clickCheckbox()}
+            />
+            <div>
+              <div id="button-center">
+                <i class="fas fa fa-adjust"></i>
+              </div>
             </div>
+          </label>
+        </div>
+        <div className={`fa-fixed ${openNav}`} onClick={() => hamburgerClick()}>
+          <i className="fas fa-hamburger"></i>
+        </div>
+
+        <div className={`${openNav} nav-drawer`}>
+          <div className="fa-times-button" onClick={() => hamburgerClick()}>
+            <i className="fas fa-times"></i>
           </div>
-        </label>
+          <div className="open-nav-item-container">
+            <div className="search-container">
+              <i class="fad fa-search"></i>
+              <input type="text" placeholder="Search"></input>
+              <div className="search-drawer-underline"></div>
+            </div>
+            <h5>Testing</h5>
+            <h5>Testing</h5>
+            <h5>Testing</h5>
+            <h5>Testing</h5>
+            <h5>Testing</h5>
+          </div>
+        </div>
+        <div onClick={() => hamburgerClick()} className={`${openNav} nav-overlay`}></div>
       </div>
     </nav>
   );

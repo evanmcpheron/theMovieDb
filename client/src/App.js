@@ -23,7 +23,12 @@ const App = () => {
     store.dispatch(loadUser());
   }, []);
 
-  const [darkMode, setDarkMode] = useState('');
+  const [darkMode, setDarkMode] = useState('dark');
+  const [openNav, setOpenNav] = useState('');
+
+  const handleOpen = (newValue) => {
+    setOpenNav(newValue);
+  };
 
   const handleChange = (newValue) => {
     setDarkMode(newValue);
@@ -34,19 +39,28 @@ const App = () => {
       <div className={darkMode}>
         <Router>
           <Fragment>
-            <Navbar onChange={handleChange} />
-            <Route exact path="/" component={Landing} />
-            <section className="container">
-              {/* <Alert /> */}
-              <Switch>
-                {/* <Route exact path="/login" component={Login} />
+            <div className="navbar-container">
+              <Navbar onChange={handleChange} onEdit={handleOpen} />
+              <img
+                src="https://the-movie-db-io.s3.us-east-2.amazonaws.com/logo.png"
+                className={`main-logo ${openNav}`}
+                alt="Logo"
+              />
+            </div>
+            <div className="main-container">
+              <Route exact path="/" component={Landing} />
+              <section className="container">
+                {/* <Alert /> */}
+                <Switch>
+                  {/* <Route exact path="/login" component={Login} />
               <Route exact path="/register" component={Register} />
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
               <PrivateRoute>
                 <AdminRoute exact path="/admin" component={Admin} />
               </PrivateRoute> */}
-              </Switch>
-            </section>
+                </Switch>
+              </section>
+            </div>
           </Fragment>
         </Router>
       </div>
